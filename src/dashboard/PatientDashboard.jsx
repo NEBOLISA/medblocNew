@@ -249,6 +249,10 @@ export default function PatientDashboard() {
           JSON.stringify(treatmentDetails)
         );
         localStorage.setItem("vaccine", JSON.stringify(vaccine));
+        localStorage.setItem(
+          "getFormattedRecords",
+          JSON.stringify(formattedRecords)
+        );
         localStorage.setItem("prescription", JSON.stringify(prescription));
         localStorage.setItem("billing", JSON.stringify(billing));
         localStorage.setItem("service", JSON.stringify(service));
@@ -487,7 +491,7 @@ export default function PatientDashboard() {
             Welcome!{" "}
             {patient_First_Name
               ? patient_First_Name
-              : checkEffectFirstName || patient_Name.split(" ")[0]}
+              : checkEffectFirstName || patient_Name?.split(" ")[0]}
             ,
           </h1>
         </div>

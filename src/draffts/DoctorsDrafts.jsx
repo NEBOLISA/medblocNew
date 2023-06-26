@@ -24,7 +24,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function DoctorsDrafts() {
-  const { tempContract } = contracts();
+  const tempContract = contracts();
   const [isLoading, setIsLoading] = useState(false);
   console.log(tempContract);
 
