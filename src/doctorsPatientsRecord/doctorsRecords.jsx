@@ -9,7 +9,7 @@ import { useServiceProviderValue } from "../ServiceProvider";
 import { contracts } from "../hooks/UseContract";
 
 function DoctorsRecords() {
-  const { tempContract } = contracts();
+  const tempContract = contracts();
 
   const [{ index }, dispatch] = useServiceProviderValue();
   let patient_Image = localStorage.getItem("patient_image");
