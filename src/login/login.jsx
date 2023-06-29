@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./login.css";
-import {BsArrowLeft} from "react-icons/bs"
+import { BsArrowLeft } from "react-icons/bs";
 import bigImage from "../assets/signup-second.png";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -9,7 +9,7 @@ import StateContext from "../stateProvider/stateprovider";
 import { useContext } from "react";
 import axioscall from "../api/secondApi";
 import { useServiceProviderValue } from "../ServiceProvider";
-import newlogo from "../assets/newlogo2.png"
+import newlogo from "../assets/newlogo2.png";
 
 const validEmailRex = new RegExp(
   "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
@@ -61,9 +61,8 @@ export default function Login() {
       password: userPassword,
     };
     if (user === "doctor") {
-      let response = null;
       try {
-        response = await axioscall.post(
+        const response = await axioscall.post(
           DOCTOR_LOGIN,
           JSON.stringify(DoctorData),
           {
@@ -75,10 +74,6 @@ export default function Login() {
           }
         );
         // console.log(response.data.token);
-        const userdetails = {
-          token: response?.data.token,
-          email: response?.data.doctor,
-        };
 
         // const userStringify = JSON.stringify(userdetails);
         localStorage.setItem("doctorToken", response?.data.token);
@@ -103,11 +98,11 @@ export default function Login() {
         if (!err?.response) {
           setErrMsg("No Server Response");
           setIsLoading(false);
-          setAuth({
-            userEmail,
-            userPassword,
-            patientToken: response?.data.token,
-          });
+          // setAuth({
+          //   userEmail,
+          //   userPassword,
+          //   patientToken: response?.data.token,
+          // });
           setUserEmail("");
           setUserPassword("");
           const item = localStorage.getItem("userdetails");
@@ -183,7 +178,9 @@ export default function Login() {
           setIsLoading(false);
         } else if (err.response?.status === 400) {
           setErrMsg(
-            "invalid user, please sign up if you are new to this plateform"
+            err +
+              " " +
+              "invalid user, please sign up if you are new to this plateform"
           );
           setIsLoading(false);
         } else {
@@ -198,7 +195,7 @@ export default function Login() {
     <div className="first-container confirmation">
       <div className="sign-up-container">
         <div className="signup-form length">
-        {/* <BsArrowLeft onClick={handle} style={{ cursor: "pointer" }} /> */}
+          {/* <BsArrowLeft onClick={handle} style={{ cursor: "pointer" }} /> */}
           <div>
             <img src={newlogo} alt="medblog" />
           </div>
