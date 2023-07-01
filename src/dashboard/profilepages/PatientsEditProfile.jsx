@@ -242,10 +242,10 @@ function PatientsEditProfile() {
   const availableCities = Cities?.find((s) => s.name === selectedState);
   // handler to set the data of the selected image to "data" state
   const handleChange = (e) => {
-    const data = new FileReader();
+    const data1 = new FileReader();
 
-    data.addEventListener("load", () => {
-      const fileSize = data.size; // Size in bytes
+    data1.addEventListener("load", () => {
+      const fileSize = data1.size; // Size in bytes
       const fileSizeInKB = Math.round(fileSize / 1024);
       if (fileSizeInKB >= 120) {
         setNoImageMsg("Please choose an image less than 120kb");
@@ -255,9 +255,11 @@ function PatientsEditProfile() {
 
         console.log(data);
       } else {
-        setData(data?.result);
+        setData(data1?.result);
+        console.log("inside" + data1);
       }
     });
+
     if (e.target.files[0]) {
       const fileSize = e.target.files[0].size; // Size in bytes
       const fileSizeInKB = Math.round(fileSize / 1024);
@@ -270,7 +272,7 @@ function PatientsEditProfile() {
 
         console.log(e.target.files[0]);
       } else {
-        data.readAsDataURL(e.target.files[0]);
+        data1.readAsDataURL(e.target.files[0]);
       }
     }
   };

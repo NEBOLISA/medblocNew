@@ -7,8 +7,8 @@ import { useLocation } from "react-router-dom";
 function Finish({ contract }) {
   const [total, setTotalAmount] = useState("");
   const handleTotalAmount = (e) => {
-    setTotalAmount(e.target.value);
-    dispatch({ type: "SET_TOTAL_AMOUNT", totalAmount: e.target.value });
+    // setTotalAmount(e.target.value);
+    //dispatch({ type: "SET_TOTAL_AMOUNT", totalAmount: e.target.value });
   };
   const [
     {
@@ -69,6 +69,18 @@ function Finish({ contract }) {
     onChangeVal[i][name] = value;
     setVal(onChangeVal);
     console.log(val);
+    if (onChangeVal[i]?.serviceCharge)
+      setTotalAmount(
+        parseInt(onChangeVal[i]?.serviceCharge) + parseInt(onChangeVal[i].tax)
+      );
+    dispatch({
+      type: "SET_TOTAL_AMOUNT",
+      totalAmount:
+        parseInt(onChangeVal[i]?.serviceCharge) + parseInt(onChangeVal[i].tax),
+    });
+    // else if (onChangeVal[i]?.tax) {
+    //   setTotalAmount(val[0].serviceCharge + onChangeVal[i].tax);
+    // }
     dispatch({
       type: "SET_BILLINGS",
       billings: [...val],

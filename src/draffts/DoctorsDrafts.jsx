@@ -72,6 +72,7 @@ export default function DoctorsDrafts() {
       totalAmount,
     },
   ] = useServiceProviderValue();
+  console.log(totalAmount);
   console.log(walletAddress);
   const handleWalletAddress = (e) => {
     dispatch({ type: "SET_PATIENT_ADDRESS", walletAddress: e.target.value });

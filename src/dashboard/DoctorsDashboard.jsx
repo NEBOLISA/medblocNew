@@ -41,9 +41,11 @@ export default function DoctorsDashboard() {
   let doctorID = localStorage.getItem("doctor_id");
   const [date, setDate] = useState(new Date());
   const [patients, setPatients] = useState([]);
+  const [getPatientsList, setPatientList] = useState([]);
   const [open, setOpen] = useState(
-    Array.from({ length: patients.length }, () => false)
+    Array.from({ length: getPatientsList.length }, () => false)
   );
+  const [noNameMatch, setNoNameMatch] = useState("");
   const [open2, setOpen2] = useState(false);
   const [connectedWallet, setConnectedWallet] = useState(true);
   const options = { month: "short", year: "numeric" };
@@ -66,7 +68,7 @@ export default function DoctorsDashboard() {
   const [doctor_License, setDoctorrLicense] = useState("");
   const [doctor_First_Name, setDoctorFirstName] = useState("");
   const [doctor_Last_Name, setDoctorLastName] = useState("");
-  const [getPatientsList, setPatientList] = useState([]);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredNames, setFilteredNames] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
@@ -202,11 +204,17 @@ export default function DoctorsDashboard() {
   };
 
   const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
+    const searchTerm = e.target.value;
+    setSearchTerm(searchTerm);
     const filtered = getPatientsList.filter((item) =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
-    setFilteredItems(filtered);
+    setPatientList(filtered);
+    if (searchTerm === "") {
+      const storedPatientList = localStorage.getItem("patient_list");
+      const parsedPatientList = JSON.parse(storedPatientList);
+      setPatientList(parsedPatientList);
+    }
   };
   useEffect(() => {
     getAllPatients();
@@ -324,7 +332,7 @@ export default function DoctorsDashboard() {
   };
   useEffect(() => {
     retrieveData();
-  }, [date, retrievedData]);
+  }, [date]);
   function formatTimeRange(timeRange) {
     const [startTime, endTime] = timeRange.split("-");
     const formattedStartTime = formatTime(startTime);
@@ -381,11 +389,16 @@ export default function DoctorsDashboard() {
               <div className="patients_div">
                 {getPatientsList?.map((patient, index) => {
                   return (
-                    <div className="patients_info" key={index}>
-                      <p>#{index}</p>
+                    <div className="patients_info" key={patient?._id}>
+                      <p>#{parseInt(index) + 1}</p>
                       <p>
-                        {patient?.name ||
-                          patients?.firstName + " " + patients?.lastName}
+                        {/* {patient?.name ||
+                          patient?.firstName + " " + patient?.lastName ||
+                          " No Name"} */}
+                        {patient?.name
+                          ? patient?.name ||
+                            patient?.firstName + " " + patient?.lastName
+                          : "Anonymous"}
                       </p>
                       <CiCircleMore
                         className="circle_more"
@@ -394,7 +407,7 @@ export default function DoctorsDashboard() {
                       {open[index] && (
                         <div class="dropdown" ref={mobileMenuRef}>
                           <ul>
-                            <li onClick={() => handleAction(index)}>
+                            <li onClick={() => handleAction(patient?._id)}>
                               Patients medical record
                             </li>
                           </ul>
@@ -403,6 +416,9 @@ export default function DoctorsDashboard() {
                     </div>
                   );
                 })}
+                <p className={noNameMatch ? "noMatch" : "none"}>
+                  {noNameMatch}
+                </p>
               </div>
             </div>
           </div>

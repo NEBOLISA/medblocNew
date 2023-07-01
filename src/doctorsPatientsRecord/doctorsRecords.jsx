@@ -14,26 +14,39 @@ function DoctorsRecords() {
   const [{ index }, dispatch] = useServiceProviderValue();
   let patient_Image = localStorage.getItem("patient_image");
   let patient_Name = localStorage.getItem("patient_name");
-  const [patientList, setPatientList] = useState("");
+  const [patientList, setPatientList] = useState([]);
 
   const navigate = useNavigate();
   const handle = () => {
-    navigate(-1);
+    navigate("/DocDashboard");
   };
-  let patientName = patientList[index]?.name;
-  let patientImage = patientList[index]?.image;
-  let patientGender = patientList[index]?.gender;
+  console.log(Array.isArray(patientList));
+  // let patient = patientList?.find(
+  //   (item) => item?._id === "648e26e628bdacc2cfd33fba"
+  // );
+  // console.log(patient);
+  let patientName = patientList.find((item) => item?._id === index)?.name;
+  let patientImage = patientList.find((item) => item?._id === index)?.image;
+  let patientGender = patientList.find((item) => item?._id === index)?.gender;
   let patientAge =
     new Date().getFullYear() -
-    parseInt(patientList[index]?.dateOfBirth.split("-")[0]);
-  let patientBlood = patientList[index]?.bloodgroup;
-  let patientGeno = patientList[index]?.genotype;
-  let patientHeight = patientList[index]?.height;
-  let patientWeight = patientList[index]?.weight;
-  let patientAllergies = patientList[index]?.allergies;
-  let patientWalletId = patientList[index]?.walletId;
+    parseInt(
+      patientList.find((item) => item?._id === index)?.dateOfBirth.split("-")[0]
+    );
+  let patientBlood = patientList.find(
+    (item) => item?._id === index
+  )?.bloodgroup;
+  let patientGeno = patientList.find((item) => item?._id === index)?.genotype;
+  let patientHeight = patientList.find((item) => item?._id === index)?.height;
+  let patientWeight = patientList.find((item) => item?._id === index)?.weight;
+  let patientAllergies = patientList.find(
+    (item) => item?._id === index
+  )?.allergies;
+  let patientWalletId = patientList.find(
+    (item) => item?._id === index
+  )?.walletId;
   let defaultAccount = JSON.parse(localStorage.getItem("defaultAccount"));
-
+  console.log(patientWalletId);
   const [getFormattedRecords, setFormattedRecords] = useState([]);
   const [vitalSigns, setVitalSigns] = useState([]);
   const [treatmentDetails, setTreatmentDetails] = useState([]);

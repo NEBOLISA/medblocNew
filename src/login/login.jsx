@@ -178,9 +178,7 @@ export default function Login() {
           setIsLoading(false);
         } else if (err.response?.status === 400) {
           setErrMsg(
-            err +
-              " " +
-              "invalid user, please sign up if you are new to this plateform"
+            "invalid user, please sign up if you are new to this plateform"
           );
           setIsLoading(false);
         } else {
