@@ -136,6 +136,14 @@
   padding: 0.8rem 2rem 0.8rem 1rem;
   margin-bottom: 1rem;
 }
+.patientseditprofile
+  ._bottom_profile_details-
+  ._left_section-
+  .input_div-:focus-within {
+  border-color: #3399ff;
+  box-shadow: 0 3px 9px rgba(50, 50, 9, 0.05),
+    3px 4px 8px rgba(115, 103, 240, 0.1);
+}
 .patientseditprofile ._bottom_profile_details- ._left_section- .label- {
   margin-bottom: 1rem;
   font-size: 13px;
@@ -152,7 +160,14 @@
   padding: 0.8rem 2rem 0.8rem 1rem;
   margin-bottom: 1rem;
 }
-
+.patientseditprofile
+  ._bottom_profile_details-
+  ._right_section-
+  .input_div-:focus-within {
+  border-color: #3399ff;
+  box-shadow: 0 3px 9px rgba(50, 50, 9, 0.05),
+    3px 4px 8px rgba(115, 103, 240, 0.1);
+}
 .patientseditprofile ._bottom_profile_details- ._right_section- .label- {
   margin-bottom: 1rem;
   font-size: 13px;
@@ -187,7 +202,11 @@
   padding: 0.8rem 2rem 0.8rem 1rem;
   margin-bottom: 1rem;
 }
-
+.patientseditprofile .input_div-:focus-within {
+  border-color: #3399ff;
+  box-shadow: 0 3px 9px rgba(50, 50, 9, 0.05),
+    3px 4px 8px rgba(115, 103, 240, 0.1);
+}
 .patientseditprofile .label- {
   margin-bottom: 1rem;
   font-size: 13px;

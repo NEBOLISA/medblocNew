@@ -74,6 +74,11 @@
   width: fit-content;
   padding: 0.5rem;
 }
+.doctorsdashboard main .search_div:focus-within {
+  border-color: #3399ff;
+  box-shadow: 0 3px 9px rgba(50, 50, 9, 0.05),
+    3px 4px 8px rgba(115, 103, 240, 0.1);
+}
 .doctorsdashboard main .search_div input {
   background: none;
   border: none;

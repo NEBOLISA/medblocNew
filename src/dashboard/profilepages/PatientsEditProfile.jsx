@@ -245,16 +245,7 @@ function PatientsEditProfile() {
     const data1 = new FileReader();
 
     data1.addEventListener("load", () => {
-      const fileSize = data1.size; // Size in bytes
-      const fileSizeInKB = Math.round(fileSize / 1024);
-      if (fileSizeInKB >= 120) {
-        setNoImageMsg("Please choose an image less than 120kb");
-        setTimeout(() => {
-          setNoImageMsg("");
-        }, 3000);
-
-        console.log(data);
-      } else {
+      {
         setData(data1?.result);
         console.log("inside" + data1);
       }

@@ -31,6 +31,7 @@ export default function DoctorsDashboard() {
   const [isDropOpen, setIsDropOpen] = useState(false);
   const [retrievedData, setRetrievedData] = useState(null);
   const [snapshot, setSnapshot] = useState("");
+
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");
@@ -46,6 +47,7 @@ export default function DoctorsDashboard() {
     Array.from({ length: getPatientsList.length }, () => false)
   );
   const [noNameMatch, setNoNameMatch] = useState("");
+  const [noNameCheck, setNoNameCheck] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [connectedWallet, setConnectedWallet] = useState(true);
   const options = { month: "short", year: "numeric" };
@@ -210,12 +212,26 @@ export default function DoctorsDashboard() {
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setPatientList(filtered);
-    if (searchTerm === "") {
+    if (searchTerm === "" && filtered.length === []) {
+      const storedPatientList = localStorage.getItem("patient_list");
+      const parsedPatientList = JSON.parse(storedPatientList);
+      setPatientList(parsedPatientList);
+    } else if (searchTerm !== "" && filtered.length === 0) {
+      setNoNameCheck(true);
+      setNoNameMatch("Name not found!");
+    } else if (filtered.length === 0 && searchTerm === "") {
+      setNoNameCheck(false);
+      setNoNameMatch("");
+      const storedPatientList = localStorage.getItem("patient_list");
+      const parsedPatientList = JSON.parse(storedPatientList);
+      setPatientList(parsedPatientList);
+    } else if (filtered.length !== 0 && searchTerm === "") {
       const storedPatientList = localStorage.getItem("patient_list");
       const parsedPatientList = JSON.parse(storedPatientList);
       setPatientList(parsedPatientList);
     }
   };
+
   useEffect(() => {
     getAllPatients();
     const storedPatientList = localStorage.getItem("patient_list");
@@ -416,9 +432,11 @@ export default function DoctorsDashboard() {
                     </div>
                   );
                 })}
-                <p className={noNameMatch ? "noMatch" : "none"}>
-                  {noNameMatch}
-                </p>
+                {noNameCheck && (
+                  <p style={{ textAlign: "center", marginTop: "20%" }}>
+                    {noNameMatch}
+                  </p>
+                )}
               </div>
             </div>
           </div>
