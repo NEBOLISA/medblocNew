@@ -200,7 +200,7 @@ export default function DoctorsDashboard() {
         const patientsData = res.data;
         localStorage.setItem("patient_list", JSON.stringify(patientsData));
 
-        setPatients(res.data);
+        setPatientList(res.data);
       })
       .catch((error) => {});
   };
