@@ -10,7 +10,7 @@ import NavComponent from "./components/navComponent";
 import { Link, useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import {
-  collection,GIT 
+  collection,
   getDocs,
   addDoc,
   doc,
